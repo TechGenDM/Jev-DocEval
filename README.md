@@ -1,60 +1,41 @@
-# doc-eval
+# Jev DocEval
 
-CLI to evaluate engineering and technical documents (API specs, RFCs, architecture designs, onboarding guides) across multiple quality dimensions using the **[TypeSafe](https://docs.typesafe.ai) System One API (Jev model)**.
+**Jev DocEval** is an internal engineering tool designed to automatically grade and evaluate the quality of your technical documents (like API Specs, RFCs, and Onboarding Guides). 
 
-Each document is judged across parallel **Score** questions with calibrated probabilities and confidence ratings, which your code composes into a weighted overall score.
+Instead of reading through long documents to guess if they are "good enough", you simply run this tool. It acts as an automated reviewer that reads your markdown files and scores them on **Clarity**, **Completeness**, **Actionability**, and **Technical Depth**, letting you know exactly what needs improvement.
 
----
-
-## Dimensions
-
-Evaluates technical documentation on four core quality dimensions using descriptive 0–4 level rubrics:
-
-| Dimension | Id | What it measures |
-| --- | --- | --- |
-| **Clarity** | `clarity` | Structural organization, precise technical definitions, clean code/schema references, and scannability. |
-| **Completeness** | `completeness` | Thoroughness across prerequisites, edge cases, system components, error states, and boundaries. |
-| **Actionability** | `actionability` | Executable next steps, copy-pasteable commands/code, explicit parameters, and implementation guidance. |
-| **Technical Depth** | `technical_depth` | Concrete mechanisms, data structures, failure modes, concurrency, latency/throughput tradeoffs, and architectural rigor. |
-
-Scores are probability-weighted values on a **0–4** scale. The **Overall** score is a weight-normalized composite on a **0.0–1.0** scale.
+It runs entirely on your own machine (localhost) and opens a clean, beautiful web dashboard to view the results.
 
 ---
 
-## Weighting Presets
+## 🚀 Quick Start (Web Dashboard)
 
-Choose from domain-tailored weighting presets or specify custom weights:
+The easiest way to use Jev DocEval is through its built-in Web UI.
 
-| Preset | Description | Weight Distribution |
-| --- | --- | --- |
-| `general` *(default)* | Balanced general technical assessment | Clarity: 25%, Completeness: 25%, Actionability: 25%, Technical Depth: 25% |
-| `rfc` | Architecture RFCs and system proposals | Technical Depth: 40%, Completeness: 30%, Clarity: 20%, Actionability: 10% |
-| `api-spec` | API and interface contracts | Completeness: 35%, Technical Depth: 35%, Clarity: 15%, Actionability: 15% |
-| `onboarding` | Developer onboarding guides & runbooks | Actionability: 40%, Clarity: 35%, Completeness: 15%, Technical Depth: 10% |
+### 1. Requirements
+- You need **Python 3.10+** installed on your computer.
+- We recommend installing [uv](https://docs.astral.sh/uv/getting-started/installation/), a fast Python package manager, though standard `pip` works too.
 
----
+### 2. Add your API Key
+Since this tool uses AI to read the documents, you need a TypeSafe API Key.
+1. Copy the `.env.example` file and rename it to `.env`.
+2. Open the new `.env` file and paste your API key inside.
 
-## Installation & Setup
-
-1. Configure your TypeSafe API key in a local `.env` file (or export `TYPESAFE_API_KEY`):
+### 3. Start the Tool
+Open your terminal, navigate to this folder, and run:
 
 ```bash
-echo 'TYPESAFE_API_KEY=your_api_key_here' > .env
+uv run doc-eval --ui
 ```
+*(If you don't have `uv`, you can install the tool first with `pip install -e .` and then run `doc-eval --ui`)*
 
-2. Install dependencies with `uv` or `pip`:
-
-```bash
-# with uv
-uv sync
-
-# or with pip
-pip install -e .
-```
+That's it! Open **http://localhost:8000** in your web browser to start grading your documents.
 
 ---
 
-## Usage
+## 💻 Power Users: CLI Usage
+
+If you prefer staying in the terminal or want to automate checks in your CI/CD pipeline, Jev DocEval works as a powerful command-line tool.
 
 ### 1. Basic Evaluation
 
