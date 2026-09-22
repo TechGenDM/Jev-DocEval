@@ -7,7 +7,7 @@
   <meta name="description" content="Clean, soft SaaS dashboard for technical document evaluation with TypeSafe System One (Jev).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
@@ -34,8 +34,7 @@
         </div>
 
         <div class="nav-right">
-          <div class="status-pill status-pill-neutral">
-            <span class="pill-dot pill-dot-purple"></span>
+          <div class="status-tag status-tag-active">
             <span>TypeSafe Jev (System One)</span>
           </div>
           <button type="button" class="btn-subtle" id="refresh-samples-btn" title="Reload repository samples">
@@ -71,12 +70,7 @@
           <div class="presets-row" id="preset-grid" role="radiogroup" aria-label="Evaluation Preset">
             <div class="preset-card active" data-preset="general" id="preset-general" role="radio" aria-checked="true" tabindex="0">
               <div class="preset-card-top">
-                <div class="icon-chip chip-blue">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                  </svg>
-                </div>
-                <span class="status-pill status-pill-neutral">Balanced</span>
+                <span class="status-tag status-tag-neutral">Balanced</span>
               </div>
               <h3 class="preset-title">General Technical</h3>
               <p class="preset-summary">Equal 25% weights across all dimensions. For guides and general docs.</p>
@@ -87,14 +81,7 @@
 
             <div class="preset-card" data-preset="rfc" id="preset-rfc" role="radio" aria-checked="false" tabindex="0">
               <div class="preset-card-top">
-                <div class="icon-chip chip-purple">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
-                  </svg>
-                </div>
-                <span class="status-pill status-pill-neutral">Rigor</span>
+                <span class="status-tag status-tag-neutral">Rigor</span>
               </div>
               <h3 class="preset-title">Architecture RFC</h3>
               <p class="preset-summary">Emphasizes technical depth (40%) and completeness (30%) over steps.</p>
@@ -106,13 +93,7 @@
 
             <div class="preset-card" data-preset="api-spec" id="preset-api-spec" role="radio" aria-checked="false" tabindex="0">
               <div class="preset-card-top">
-                <div class="icon-chip chip-teal">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="16 18 22 12 16 6"></polyline>
-                    <polyline points="8 6 2 12 8 18"></polyline>
-                  </svg>
-                </div>
-                <span class="status-pill status-pill-neutral">Contracts</span>
+                <span class="status-tag status-tag-neutral">Contracts</span>
               </div>
               <h3 class="preset-title">API &amp; Interface Spec</h3>
               <p class="preset-summary">Focuses on boundary completeness (35%) and mechanism depth (35%).</p>
@@ -124,13 +105,7 @@
 
             <div class="preset-card" data-preset="onboarding" id="preset-onboarding" role="radio" aria-checked="false" tabindex="0">
               <div class="preset-card-top">
-                <div class="icon-chip chip-amber">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                  </svg>
-                </div>
-                <span class="status-pill status-pill-neutral">Execution</span>
+                <span class="status-tag status-tag-neutral">Execution</span>
               </div>
               <h3 class="preset-title">Onboarding &amp; Runbook</h3>
               <p class="preset-summary">Prioritizes immediate actionability (40%) and clarity (35%) for engineers.</p>

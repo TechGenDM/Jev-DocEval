@@ -379,19 +379,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Soft Status Badges (Dot + Label)
     if (overall >= 0.70 && passed) {
-      qualityBadge.className = 'status-pill status-pill-green';
-      qualityBadge.innerHTML = '<span class="pill-dot pill-dot-green"></span><span>● Approved</span>';
-      overallProgressBar.style.backgroundColor = 'var(--status-green-dot)';
+      qualityBadge.className = 'status-tag status-tag-pass';
+      qualityBadge.innerHTML = '<span>Approved</span>';
+      overallProgressBar.style.backgroundColor = 'var(--status-pass-text)';
       gateStatusText.textContent = 'Passed';
     } else if (overall >= 0.45 && passed) {
-      qualityBadge.className = 'status-pill status-pill-amber';
-      qualityBadge.innerHTML = '<span class="pill-dot pill-dot-amber"></span><span>● Needs Review</span>';
-      overallProgressBar.style.backgroundColor = 'var(--status-amber-dot)';
+      qualityBadge.className = 'status-tag status-tag-warn';
+      qualityBadge.innerHTML = '<span>Needs Review</span>';
+      overallProgressBar.style.backgroundColor = 'var(--status-warn-text)';
       gateStatusText.textContent = 'Passed with Notes';
     } else {
-      qualityBadge.className = 'status-pill status-pill-red';
-      qualityBadge.innerHTML = '<span class="pill-dot pill-dot-red"></span><span>● Revision Needed</span>';
-      overallProgressBar.style.backgroundColor = 'var(--status-red-dot)';
+      qualityBadge.className = 'status-tag status-tag-fail';
+      qualityBadge.innerHTML = '<span>Revision Needed</span>';
+      overallProgressBar.style.backgroundColor = 'var(--status-fail-text)';
       gateStatusText.textContent = 'Failed';
     }
 
@@ -454,17 +454,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.innerHTML = `
         <div class="dim-card-header">
-          <div class="dim-avatar-wrap">
-            <div class="dim-avatar-icon">
-              ${avatarIcons[dim.id] || avatarIcons.clarity}
-            </div>
-            <div class="dim-name-group">
-              <span class="dim-card-title">${dim.label}</span>
-              <span class="dim-weight-label">Weight ${(dim.weight * 100).toFixed(0)}%</span>
-            </div>
+          <div class="dim-name-group">
+            <span class="dim-card-title">${dim.label}</span>
+            <span class="dim-weight-label">Weight ${(dim.weight * 100).toFixed(0)}%</span>
           </div>
-          <span class="status-pill status-pill-neutral">
-            <span class="pill-dot pill-dot-purple"></span>
+          <span class="status-tag status-tag-neutral">
             <span>${confPct}% conf</span>
           </span>
         </div>
@@ -474,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="dim-score-number">${dimResult.score.toFixed(2)}</span>
             <span class="dim-score-scale">/ ${dim.max_level}.0</span>
           </div>
-          <span class="status-pill ${normPct >= 70 ? 'status-pill-green' : normPct >= 40 ? 'status-pill-amber' : 'status-pill-red'}">
+          <span class="status-tag ${normPct >= 70 ? 'status-tag-pass' : normPct >= 40 ? 'status-tag-warn' : 'status-tag-fail'}">
             <span>${normPct}% benchmark</span>
           </span>
         </div>
