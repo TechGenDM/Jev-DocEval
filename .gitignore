@@ -9,3 +9,19 @@ build/
 *.json
 !skills-lock.json
 .DS_Store
+
+# Evaluation Results
+*.csv
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Caches
+.ruff_cache/
+.mypy_cache/
+
+# IDEs
+.vscode/
+.idea/
