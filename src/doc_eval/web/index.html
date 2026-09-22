@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jev DocEval — Document Quality Evaluation</title>
+  <meta name="description" content="Clean, soft SaaS dashboard for technical document evaluation with TypeSafe System One (Jev).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <!-- Dashboard Outer Frame -->
+  <div class="app-frame">
+
+
+    <!-- Main Workspace Area -->
+    <div class="workspace-area">
+
+      <!-- Top Navigation Header -->
+      <header class="top-nav">
+        <div class="nav-left">
+          <div class="nav-brand">
+            <div class="logo-mark">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="m9 15 2 2 4-4"></path>
+              </svg>
+            </div>
+            <span class="brand-text">Jev DocEval</span>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <div class="status-pill status-pill-neutral">
+            <span class="pill-dot pill-dot-purple"></span>
+            <span>TypeSafe Jev (System One)</span>
+          </div>
+          <button type="button" class="btn-subtle" id="refresh-samples-btn" title="Reload repository samples">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"></path>
+            </svg>
+            Sync
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Content Canvas -->
+      <main class="content-canvas" id="content-canvas">
+
+        <!-- Page Header & Presets -->
+        <section class="section-block">
+          <div class="section-title-row">
+            <div>
+              <h1 class="page-title">Document Quality Evaluation</h1>
+              <p class="page-subtitle">Assess technical depth, completeness, clarity, and actionability with calibrated AI judgments</p>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-text-link" id="toggle-weights-btn">
+                <span>Configure Weights &amp; Gates</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Presets Grid (Subtle Rounded Cards) -->
+          <div class="presets-row" id="preset-grid" role="radiogroup" aria-label="Evaluation Preset">
+            <div class="preset-card active" data-preset="general" id="preset-general" role="radio" aria-checked="true" tabindex="0">
+              <div class="preset-card-top">
+                <div class="icon-chip chip-blue">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  </svg>
+                </div>
+                <span class="status-pill status-pill-neutral">Balanced</span>
+              </div>
+              <h3 class="preset-title">General Technical</h3>
+              <p class="preset-summary">Equal 25% weights across all dimensions. For guides and general docs.</p>
+              <div class="preset-weight-tags">
+                <span>All 25%</span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="rfc" id="preset-rfc" role="radio" aria-checked="false" tabindex="0">
+              <div class="preset-card-top">
+                <div class="icon-chip chip-purple">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                  </svg>
+                </div>
+                <span class="status-pill status-pill-neutral">Rigor</span>
+              </div>
+              <h3 class="preset-title">Architecture RFC</h3>
+              <p class="preset-summary">Emphasizes technical depth (40%) and completeness (30%) over steps.</p>
+              <div class="preset-weight-tags">
+                <span>Depth 40%</span>
+                <span>Comp 30%</span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="api-spec" id="preset-api-spec" role="radio" aria-checked="false" tabindex="0">
+              <div class="preset-card-top">
+                <div class="icon-chip chip-teal">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                  </svg>
+                </div>
+                <span class="status-pill status-pill-neutral">Contracts</span>
+              </div>
+              <h3 class="preset-title">API &amp; Interface Spec</h3>
+              <p class="preset-summary">Focuses on boundary completeness (35%) and mechanism depth (35%).</p>
+              <div class="preset-weight-tags">
+                <span>Comp 35%</span>
+                <span>Depth 35%</span>
+              </div>
+            </div>
+
+            <div class="preset-card" data-preset="onboarding" id="preset-onboarding" role="radio" aria-checked="false" tabindex="0">
+              <div class="preset-card-top">
+                <div class="icon-chip chip-amber">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <span class="status-pill status-pill-neutral">Execution</span>
+              </div>
+              <h3 class="preset-title">Onboarding &amp; Runbook</h3>
+              <p class="preset-summary">Prioritizes immediate actionability (40%) and clarity (35%) for engineers.</p>
+              <div class="preset-weight-tags">
+                <span>Act 40%</span>
+                <span>Clar 35%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collapsible Weights & Quality Gate Drawer -->
+          <div class="settings-drawer hidden" id="custom-weights-drawer">
+            <div class="drawer-card">
+              <div class="drawer-grid">
+                <div class="drawer-col">
+                  <h4 class="drawer-heading">Custom Dimension Weights</h4>
+                  <div class="slider-list">
+                    <div class="slider-item">
+                      <div class="slider-header">
+                        <label for="weight-clarity">Clarity</label>
+                        <span id="weight-val-clarity" class="slider-badge">0.25</span>
+                      </div>
+                      <input type="range" id="weight-clarity" min="0" max="1" step="0.05" value="0.25">
+                    </div>
+
+                    <div class="slider-item">
+                      <div class="slider-header">
+                        <label for="weight-completeness">Completeness</label>
+                        <span id="weight-val-completeness" class="slider-badge">0.25</span>
+                      </div>
+                      <input type="range" id="weight-completeness" min="0" max="1" step="0.05" value="0.25">
+                    </div>
+
+                    <div class="slider-item">
+                      <div class="slider-header">
+                        <label for="weight-actionability">Actionability</label>
+                        <span id="weight-val-actionability" class="slider-badge">0.25</span>
+                      </div>
+                      <input type="range" id="weight-actionability" min="0" max="1" step="0.05" value="0.25">
+                    </div>
+
+                    <div class="slider-item">
+                      <div class="slider-header">
+                        <label for="weight-technical_depth">Technical Depth</label>
+                        <span id="weight-val-technical_depth" class="slider-badge">0.25</span>
+                      </div>
+                      <input type="range" id="weight-technical_depth" min="0" max="1" step="0.05" value="0.25">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="drawer-col">
+                  <h4 class="drawer-heading">Quality Gate Criteria</h4>
+                  <div class="input-list">
+                    <div class="field-item">
+                      <label for="gate-fail-under">Minimum Overall Score (0.00 – 1.00)</label>
+                      <input type="number" id="gate-fail-under" min="0" max="1" step="0.05" placeholder="e.g. 0.60" class="text-input-sm">
+                    </div>
+
+                    <div class="field-item">
+                      <label for="gate-min-clarity">Minimum Clarity Score (0.0 – 4.0)</label>
+                      <input type="number" id="gate-min-clarity" min="0" max="4" step="0.1" placeholder="e.g. 2.5" class="text-input-sm">
+                    </div>
+
+                    <div class="field-item">
+                      <label for="gate-min-depth">Minimum Technical Depth (0.0 – 4.0)</label>
+                      <input type="number" id="gate-min-depth" min="0" max="4" step="0.1" placeholder="e.g. 2.0" class="text-input-sm">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Interaction Area: 2-Column Split -->
+        <div class="main-two-col">
+
+          <!-- Left Column: Document Workspace Card -->
+          <div class="col-main">
+            <section class="card-box" id="document-input-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Document Content</h2>
+                  <p class="card-subtitle">Choose from sample files below, or paste your Markdown content</p>
+                </div>
+                <div class="doc-meta-stats">
+                  <span class="meta-tag" id="stat-words">0 words</span>
+                  <span class="meta-tag" id="stat-lines">0 lines</span>
+                </div>
+              </div>
+
+              <!-- Sample Document Chips -->
+              <div class="samples-chip-row" id="samples-bar">
+                <span class="samples-title">Samples:</span>
+                <div class="sample-pills-list" id="samples-pills">
+                  <span class="hint-text">Loading samples...</span>
+                </div>
+              </div>
+
+              <!-- Document Title Input -->
+              <div class="form-group">
+                <label for="doc-title-input" class="form-label">Document Name / Title</label>
+                <input type="text" id="doc-title-input" class="text-input" placeholder="e.g. API Rate Limiting Design" value="API Rate Limiting Design">
+              </div>
+
+              <!-- Content Editor Box -->
+              <div class="editor-wrap" id="editor-container">
+                <textarea id="doc-content-textarea" class="document-textarea" placeholder="Paste markdown content here, or drag & drop a .md / .txt file..." spellcheck="false"></textarea>
+
+                <!-- Drag & Drop Overlay -->
+                <div class="drag-drop-curtain hidden" id="drop-overlay">
+                  <div class="curtain-message">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Drop .md or .txt file to load</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Action Footer -->
+              <div class="card-footer">
+                <div class="footer-left">
+                  <label for="file-upload-input" class="btn-secondary" id="file-upload-label">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <span>Upload File</span>
+                  </label>
+                  <input type="file" id="file-upload-input" accept=".md,.txt,.markdown" class="hidden-file-input">
+                  <span class="help-text">Supports .md, .txt</span>
+                </div>
+
+                <div class="footer-right">
+                  <button type="button" class="btn-primary" id="evaluate-btn">
+                    <span class="btn-spinner hidden" id="evaluate-spinner"></span>
+                    <svg class="btn-icon" id="evaluate-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span id="evaluate-btn-text">Evaluate Document</span>
+                    <span class="kbd-badge">⌘ ↵</span>
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right Column: Score Summary Card -->
+          <div class="col-sidebar">
+            <section class="card-box score-summary-card" id="summary-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Overall Quality</h3>
+                  <p class="card-subtitle">Composite evaluation</p>
+                </div>
+                <div id="quality-badge-wrap">
+                  <span class="status-pill status-pill-green" id="quality-badge">
+                    <span class="pill-dot pill-dot-green"></span>
+                    <span>Ready</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Large Score Metric -->
+              <div class="score-display-box">
+                <div class="score-big-number" id="overall-score-display">—</div>
+                <div class="score-sub-label">Scale of 0.000 to 1.000</div>
+              </div>
+
+              <!-- Flat Slim Progress Bar -->
+              <div class="metric-progress-track">
+                <div class="metric-progress-bar" id="overall-progress-bar" style="width: 0%;"></div>
+              </div>
+
+              <div class="summary-details-list">
+                <div class="detail-row">
+                  <span class="detail-label">Model Engine</span>
+                  <span class="detail-value">TypeSafe Jev</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Active Preset</span>
+                  <span class="detail-value" id="t-preset">General</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Token Usage</span>
+                  <span class="detail-value" id="t-tokens">—</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Quality Gate</span>
+                  <span class="detail-value" id="gate-status-text">Pending</span>
+                </div>
+              </div>
+
+              <!-- Quality Gate Alert Box -->
+              <div class="gate-notice-box hidden" id="quality-gate-notice">
+                <div class="notice-icon" id="gate-notice-icon">✓</div>
+                <div class="notice-text" id="gate-msg">Quality requirements satisfied</div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <!-- Results Section: Dimension Breakdown (White Cards Grid) -->
+        <section class="section-block results-block hidden" id="results-section">
+          <div class="section-title-row">
+            <div>
+              <h2 class="section-title">Dimension Breakdown</h2>
+              <p class="page-subtitle" id="results-doc-title">Detailed criteria and probability distribution across 0–4 rubric</p>
+            </div>
+            <div class="section-actions">
+              <button type="button" class="btn-secondary btn-sm" id="copy-markdown-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy PR Table</span>
+              </button>
+              <button type="button" class="btn-secondary btn-sm" id="download-csv-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>CSV</span>
+              </button>
+              <button type="button" class="btn-secondary btn-sm" id="copy-json-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <span>JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dimension Cards Grid (Like the Onboarding Cards in Reference Image) -->
+          <div class="dimension-cards-grid" id="dimension-cards-grid">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
