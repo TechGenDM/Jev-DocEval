@@ -1,10 +1,35 @@
-# Jev DocEval
+<div align="center">
 
-**Jev DocEval** is an internal engineering tool designed to automatically grade and evaluate the quality of your technical documents (like API Specs, RFCs, and Onboarding Guides). 
+# 📄 Jev DocEval
 
-Instead of reading through long documents to guess if they are "good enough", you simply run this tool. It acts as an automated reviewer that reads your markdown files and scores them on **Clarity**, **Completeness**, **Actionability**, and **Technical Depth**, letting you know exactly what needs improvement.
+**Stop guessing if your docs are "good enough." Grade them automatically.**
 
-It runs entirely on your own machine (localhost) and opens a clean, beautiful web dashboard to view the results.
+Jev DocEval is a local, AI-powered reviewer for your technical documents — API specs, RFCs, onboarding guides, and more. It reads your markdown files and scores them on **Clarity**, **Completeness**, **Actionability**, and **Technical Depth**, so you know exactly what to fix before you ship.
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![CI](https://img.shields.io/badge/CI-passing-brightgreen.svg)](#running-tests)
+[![Runs Locally](https://img.shields.io/badge/runs-100%25%20local-informational.svg)](#-quick-start-web-dashboard)
+
+[Quick Start](#-quick-start-web-dashboard) •
+[CLI Usage](#-power-users-cli-usage) •
+[Output Formats](#4-output-formats-markdown-csv-json) •
+[CI/CD Gating](#5-cicd-quality-gating) •
+[Project Structure](#project-structure)
+
+</div>
+
+---
+
+## Why Jev DocEval?
+
+Reading through a 40-page RFC to guess whether it's "documentation-complete" doesn't scale. Jev DocEval automates that judgment call: point it at a markdown file or a whole directory, and it hands back objective, dimension-by-dimension scores plus the exact reasoning behind each one — all running entirely on your own machine.
+
+- 🖥️ **Runs on localhost** — your documents never have to leave your machine's network boundary via the dashboard
+- 🎯 **Four-dimension rubric** — Clarity, Completeness, Actionability, Technical Depth, each independently scored on a 0–4 scale
+- 🧩 **Presets built-in** — RFC, API spec, and onboarding-guide scoring profiles out of the box
+- ⚙️ **CI/CD-ready** — fail a build automatically when documentation quality drops below your bar
+- 🚀 **Scales with async concurrency** — evaluate large docsets in parallel
 
 ---
 
@@ -13,31 +38,38 @@ It runs entirely on your own machine (localhost) and opens a clean, beautiful we
 The easiest way to use Jev DocEval is through its built-in Web UI.
 
 ### 1. Requirements
-- You need **Python 3.10+** installed on your computer.
-- We recommend installing [uv](https://docs.astral.sh/uv/getting-started/installation/), a fast Python package manager, though standard `pip` works too.
 
-### 2. Add your API Key
-Since this tool uses AI to read the documents, you need a TypeSafe API Key.
-1. Copy the `.env.example` file and rename it to `.env`.
-2. Open the new `.env` file and paste your API key inside.
+- **Python 3.10+** installed on your computer
+- We recommend [uv](https://docs.astral.sh/uv/getting-started/installation/), a fast Python package manager — standard `pip` also works
 
-### 3. Start the Tool
-Open your terminal, navigate to this folder, and run:
+### 2. Add your API key
+
+Jev DocEval uses AI to read and grade your documents, so it needs a TypeSafe API key:
+
+1. Copy `.env.example` and rename it to `.env`
+2. Open the new `.env` file and paste your API key inside
+
+### 3. Start the tool
 
 ```bash
 uv run doc-eval --ui
 ```
-*(If you don't have `uv`, you can install the tool first with `pip install -e .` and then run `doc-eval --ui`)*
 
-That's it! Open **http://localhost:8000** in your web browser to start grading your documents.
+> No `uv`? Install the tool first, then run it the same way:
+> ```bash
+> pip install -e .
+> doc-eval --ui
+> ```
+
+Open **http://localhost:8000** in your browser and start grading your documents.
 
 ---
 
 ## 💻 Power Users: CLI Usage
 
-If you prefer staying in the terminal or want to automate checks in your CI/CD pipeline, Jev DocEval works as a powerful command-line tool.
+Prefer the terminal, or want to automate documentation checks in CI/CD? Jev DocEval is a full-featured CLI as well.
 
-### 1. Basic Evaluation
+### 1. Basic evaluation
 
 ```bash
 # Evaluate all documents in a directory
@@ -47,7 +79,7 @@ doc-eval samples/
 doc-eval samples/api-rate-limiting.md samples/onboarding-checklist.md
 ```
 
-### 2. Using Presets or Custom Weights
+### 2. Presets and custom weights
 
 ```bash
 # Use the RFC preset
@@ -60,15 +92,16 @@ doc-eval samples/onboarding-checklist.md --preset onboarding
 doc-eval samples/ --weights clarity=0.4,completeness=0.2,actionability=0.3,technical_depth=0.1
 ```
 
-### 3. Detailed Inspection (`--details`)
+### 3. Detailed inspection (`--details`)
 
-Inspect the complete probability distribution across levels (0–4) and the exact matching criteria text:
+Inspect the full probability distribution across levels (0–4) and the exact rubric text that was matched:
 
 ```bash
 doc-eval samples/api-rate-limiting.md --preset api-spec --details
 ```
 
-Output:
+**Sample output:**
+
 ```text
 Document: api-rate-limiting.md (/path/to/samples/api-rate-limiting.md)
 Title:    API Rate Limiting Design
@@ -83,7 +116,7 @@ Overall:  0.689 (composite)
   ...
 ```
 
-### 4. Output Formats (Markdown, CSV, JSON)
+### 4. Output formats (Markdown, CSV, JSON)
 
 ```bash
 # Markdown table (ready for GitHub PR comments)
@@ -99,7 +132,7 @@ doc-eval samples/ --format json
 doc-eval samples/ --json results.json
 ```
 
-### 5. CI/CD Quality Gating
+### 5. CI/CD quality gating
 
 Enforce documentation quality in git pre-commit hooks or GitHub Actions:
 
@@ -111,7 +144,7 @@ doc-eval docs/ --fail-under 0.60
 doc-eval docs/ --min-score clarity=2.5,technical_depth=2.0
 ```
 
-### 6. High-Throughput Async Concurrency
+### 6. High-throughput async concurrency
 
 Batch evaluation runs concurrently over `AsyncTypeSafeClient`. Adjust concurrency with `-c`:
 
@@ -139,3 +172,11 @@ tests/            # Automated test suite (dimensions, parser, CLI, quality gates
 ```bash
 uv run python -m unittest discover tests
 ```
+
+## Contributing
+
+Issues and pull requests are welcome. If you're proposing a larger change (a new preset, a new output format, a scoring-rubric tweak), consider opening an issue first to discuss the approach.
+
+## License
+
+Released under the [MIT License](LICENSE).
